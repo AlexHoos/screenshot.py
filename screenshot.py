@@ -34,7 +34,8 @@ def screenshot(versuche: int = 3) -> str | None:
             with sync_playwright() as p:
                 browser = p.chromium.launch()
                 page = browser.new_page(
-                    viewport={"width": 1440, "height": 1600},
+                    viewport={"width": 1280, "height": 1450},
+                    device_scale_factor=2,
                     locale="de-DE",
                     timezone_id="Europe/Berlin",
                 )
@@ -49,7 +50,9 @@ def screenshot(versuche: int = 3) -> str | None:
                         pass
 
                 page.wait_for_timeout(8_000)  # Karte und Live-Daten laden lassen
-                page.screenshot(path=pfad, full_page=True)
+                page.evaluate("window.scrollTo(0, 110)")  # Navigationsleiste ausblenden
+                page.wait_for_timeout(1_000)
+                page.screenshot(path=pfad, full_page=False)
                 browser.close()
             print(f"[{ts}] Gespeichert: {pfad}")
             return pfad
