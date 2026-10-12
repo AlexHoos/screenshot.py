@@ -111,8 +111,8 @@ KARTE_HTML = """<!DOCTYPE html><html><head><meta charset="utf-8">
  const D = __DATEN__;
  const pos = D.track[D.track.length - 1];
  const map = L.map('map', {zoomControl:false, attributionControl:true}).setView(pos, D.zoom);
- const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-   {subdomains:'abcd', maxZoom:18, attribution:'© OpenStreetMap, © CARTO'}).addTo(map);
+ const tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+   {maxZoom:18, attribution:'Tiles © Esri'}).addTo(map);
  tiles.on('load', () => { window.kartenFertig = true; });
  if (D.start && D.ziel) L.polyline([D.start, D.ziel], {color:'#666', weight:2, dashArray:'6 6'}).addTo(map);
  L.polyline(D.track, {color:'#d62828', weight:4}).addTo(map);
